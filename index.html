@@ -32,9 +32,9 @@
         }
 
         /* Unreal Engine-ish theme palette */
-        .bg-ue-bg { background-color: #0b0b0b; } /* Plus sombre pour le fond global */
-        .bg-ue-panel { background-color: #161616; } /* Carte principale */
-        .bg-ue-surface { background-color: #1f1f1f; } /* Elements interactifs */
+        .bg-ue-bg { background-color: #0b0b0b; }
+        .bg-ue-panel { background-color: #161616; }
+        .bg-ue-surface { background-color: #1f1f1f; }
         .bg-ue-header { background-color: #111111; }
         
         .text-ue-blue { color: #57b3ff; }
@@ -42,7 +42,7 @@
         
         /* Typography */
         .prose h1 { @apply text-4xl font-bold mb-6 text-white; }
-        .prose h2 { @apply text-2xl font-bold mb-8 text-ue-blue flex items-center gap-3 pb-4 border-b border-gray-800; }
+        .prose h2 { @apply text-2xl font-bold mb-8 text-ue-blue flex items-center gap-3 pb-4 border-b border-gray-800 scroll-mt-32; }
         .prose h3 { @apply text-lg font-semibold mb-4 text-gray-100 uppercase tracking-wide; }
         .prose p { @apply mb-6 text-gray-400 leading-relaxed text-base; }
         .prose ul { @apply list-disc list-outside mb-6 text-gray-400 ml-5 space-y-2; }
@@ -51,12 +51,12 @@
         /* Code styling */
         .prose code { @apply bg-black/50 text-pink-400 px-2 py-1 rounded text-sm font-mono border border-gray-700/50 mx-1; }
         
-        /* New "Island" Architecture Classes */
+        /* New "Island" Architecture Classes - INCREASED MARGIN HERE */
         .content-section {
-            @apply mb-16 p-8 md:p-12 bg-ue-panel rounded-2xl border border-ue-gray shadow-2xl relative;
+            @apply mb-32 p-8 md:p-12 bg-ue-panel rounded-2xl border border-ue-gray shadow-2xl relative scroll-mt-24;
         }
 
-        /* Inner Cards (inverted contrast) */
+        /* Inner Cards */
         .inner-card {
             @apply bg-black/40 border border-gray-800 p-6 rounded-xl hover:border-gray-600 transition-colors;
         }
@@ -149,8 +149,7 @@
         <div class="max-w-6xl mx-auto px-6 py-12 md:py-16 prose">
             
             <!-- SECTION 1: OVERVIEW -->
-            <!-- Note: No card for header to make it blend with background, creating a title effect -->
-            <section id="overview" class="mb-16 md:px-4">
+            <section id="overview" class="mb-24 md:px-4">
                 <div class="flex items-center gap-4 mb-6">
                     <div class="p-3 bg-ue-blue-dim rounded-lg border border-ue-blue/20">
                         <i data-lucide="book-open" class="text-ue-blue w-8 h-8"></i>
@@ -400,19 +399,24 @@
                         <thead>
                             <tr>
                                 <th class="w-1/3">Node Name</th>
-                                <th class="w-1/6">Type</th>
+                                <th class="w-1/6">Category</th>
                                 <th>Function</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr><td><strong>Save World Async</strong></td><td><span class="text-[10px] uppercase bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded border border-blue-500/20">Async</span></td><td>Saves world + screenshot.</td></tr>
-                            <tr><td><strong>Load World Full</strong></td><td>Sync</td><td>Reloads map (Hard reset).</td></tr>
-                            <tr><td><strong>Load World Instant</strong></td><td>Sync</td><td>Restores actors only (Soft reset).</td></tr>
-                            <tr><td><strong>Save Global</strong></td><td>Sync</td><td>Saves GameInstance.</td></tr>
+                            <tr><td><strong>Load World Full</strong></td><td>EasySave</td><td>Reloads map (Hard reset).</td></tr>
+                            <tr><td><strong>Load World Instant</strong></td><td>EasySave</td><td>Restores actors only (Soft reset).</td></tr>
+                            <tr><td><strong>Save Global</strong></td><td>EasySave</td><td>Saves GameInstance.</td></tr>
+                            <tr><td><strong>Load Global</strong></td><td>EasySave</td><td>Loads GameInstance.</td></tr>
                             <tr><td><strong>Open Level With Data</strong></td><td>Travel</td><td>Preserves Player State during travel.</td></tr>
-                            <tr><td><strong>Get All Save Slots</strong></td><td>Query</td><td>Lists all saves on disk.</td></tr>
+                            <tr><td><strong>Get All Save Slots</strong></td><td>File</td><td>Lists all saves on disk.</td></tr>
                             <tr><td><strong>Delete Save</strong></td><td>File</td><td>Deletes a specific slot.</td></tr>
-                            <tr><td><strong>Start Auto Save</strong></td><td>Timer</td><td>Begins the loop.</td></tr>
+                            <tr><td><strong>Does Save Exist</strong></td><td>File</td><td>Checks if a slot is valid.</td></tr>
+                            <tr><td><strong>Start Auto Save</strong></td><td>AutoSave</td><td>Begins the loop.</td></tr>
+                            <tr><td><strong>Stop Auto Save</strong></td><td>AutoSave</td><td>Pauses/Stops the auto-save timer.</td></tr>
+                            <tr><td><strong>Update Auto Save Settings</strong></td><td>AutoSave</td><td>Changes interval/max slots on the fly.</td></tr>
+                            <tr><td><strong>Is Auto Save Active</strong></td><td>AutoSave</td><td>Returns true if the timer is running.</td></tr>
                         </tbody>
                     </table>
                 </div>
