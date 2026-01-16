@@ -36,25 +36,51 @@
         .bg-ue-panel { background-color: #1a1a1a; }
         .bg-ue-header { background-color: #0f0f0f; }
         .text-ue-blue { color: #57b3ff; }
+        .bg-ue-blue-dim { background-color: rgba(87, 179, 255, 0.1); }
         .border-ue-gray { border-color: #333; }
+        .border-ue-blue { border-color: #57b3ff; }
 
-        /* Typography for content */
-        .prose h1 { @apply text-3xl font-bold mb-6 mt-8 text-white border-b border-gray-700 pb-2; }
-        .prose h2 { @apply text-2xl font-semibold mb-4 mt-8 text-ue-blue flex items-center gap-2; }
-        .prose h3 { @apply text-xl font-medium mb-3 mt-6 text-gray-200; }
-        .prose p { @apply mb-4 text-gray-300 leading-relaxed; }
-        .prose ul { @apply list-disc list-inside mb-4 text-gray-300 ml-4; }
-        .prose li { @apply mb-2; }
-        .prose strong { @apply text-white font-semibold; }
-        .prose blockquote { @apply border-l-4 border-yellow-500 bg-yellow-900/20 p-4 mb-4 rounded-r italic text-gray-300; }
-        .prose code { @apply bg-gray-800 text-pink-400 px-1.5 py-0.5 rounded text-sm font-mono border border-gray-700; }
-        .prose pre { @apply bg-gray-900 p-4 rounded-lg overflow-x-auto border border-gray-700 mb-6; }
-        .prose pre code { @apply bg-transparent text-gray-300 border-none p-0 text-sm; }
-        .prose table { @apply w-full text-left border-collapse mb-6; }
-        .prose th { @apply bg-gray-800 p-3 border border-gray-700 text-white font-semibold; }
-        .prose td { @apply p-3 border border-gray-700 text-gray-300; }
-        .prose tr:nth-child(even) { @apply bg-gray-800/30; }
-        .prose a { @apply text-blue-400 hover:underline; }
+        /* Typography & Spacing tweaks */
+        .prose h1 { @apply text-4xl font-bold mb-8 mt-4 text-white pb-4 border-b border-gray-700; }
+        .prose h2 { @apply text-2xl font-bold mb-6 mt-16 text-ue-blue flex items-center gap-3; }
+        .prose h3 { @apply text-xl font-semibold mb-4 mt-8 text-gray-100; }
+        
+        /* More spacing for readability */
+        .prose p { @apply mb-6 text-gray-300 leading-7 text-base; }
+        .prose ul { @apply list-disc list-outside mb-6 text-gray-300 ml-6 space-y-2; }
+        
+        .prose strong { @apply text-white font-bold; }
+        
+        /* Code blocks */
+        .prose code { @apply bg-gray-800 text-pink-400 px-2 py-0.5 rounded text-sm font-mono border border-gray-700 mx-1; }
+        .prose pre { @apply bg-gray-900 p-4 rounded-lg overflow-x-auto border border-gray-700 mb-8 shadow-lg; }
+        
+        /* Better Tables */
+        .prose table { @apply w-full text-left border-collapse mb-8 rounded-lg overflow-hidden border border-gray-700; }
+        .prose th { @apply bg-gray-800 p-4 border-b border-gray-600 text-white font-bold tracking-wide text-sm uppercase; }
+        .prose td { @apply p-4 border-b border-gray-700 text-gray-300 bg-gray-900/50; }
+        .prose tr:last-child td { @apply border-b-0; }
+        .prose tr:hover td { @apply bg-gray-800 transition-colors; }
+        .prose a { @apply text-ue-blue hover:text-white transition-colors underline decoration-ue-blue/50 underline-offset-4; }
+
+        /* Custom Callouts */
+        .callout {
+            @apply p-5 rounded-r-md border-l-4 mb-8 flex gap-4 items-start shadow-md;
+        }
+        .callout-info {
+            @apply bg-blue-900/20 border-blue-500;
+        }
+        .callout-warning {
+            @apply bg-orange-900/20 border-orange-500;
+        }
+
+        /* Step Card */
+        .step-card {
+            @apply bg-ue-panel p-6 rounded-lg border border-ue-gray mb-6 hover:border-gray-500 transition-all shadow-md relative overflow-hidden;
+        }
+        .step-number {
+            @apply absolute -right-4 -top-4 text-8xl font-bold text-gray-800 opacity-20 pointer-events-none select-none;
+        }
 
         /* Mobile sidebar toggle */
         @media (max-width: 768px) {
@@ -71,221 +97,296 @@
 <body class="bg-ue-dark text-gray-300 h-screen flex flex-col md:flex-row overflow-hidden">
 
     <!-- Mobile Header -->
-    <div class="md:hidden bg-ue-header p-4 flex justify-between items-center border-b border-ue-gray z-20">
-        <span class="font-bold text-white">EasySavePro Docs</span>
-        <button id="menuBtn" class="text-white hover:text-ue-blue">
+    <div class="md:hidden bg-ue-header p-4 flex justify-between items-center border-b border-ue-gray z-20 shadow-md">
+        <span class="font-bold text-white tracking-wide">EasySavePro Docs</span>
+        <button id="menuBtn" class="text-white hover:text-ue-blue transition-colors">
             <i data-lucide="menu"></i>
         </button>
     </div>
 
     <!-- Sidebar Navigation -->
-    <aside id="sidebar" class="sidebar fixed md:relative z-10 w-64 h-full bg-ue-panel border-r border-ue-gray flex-shrink-0 flex flex-col shadow-2xl md:shadow-none top-0 pt-16 md:pt-0">
-        <div class="p-6 border-b border-ue-gray hidden md:block">
-            <div class="flex items-center gap-2 text-ue-blue mb-1">
-                <i data-lucide="book-open" class="w-6 h-6"></i>
-                <h1 class="text-xl font-bold text-white tracking-tight">EasySavePro</h1>
+    <aside id="sidebar" class="sidebar fixed md:relative z-10 w-72 h-full bg-ue-panel border-r border-ue-gray flex-shrink-0 flex flex-col shadow-2xl md:shadow-none top-0 pt-16 md:pt-0">
+        <div class="p-8 border-b border-ue-gray hidden md:block bg-ue-header">
+            <div class="flex items-center gap-3 text-ue-blue mb-2">
+                <i data-lucide="save" class="w-6 h-6"></i>
+                <h1 class="text-xl font-bold text-white tracking-tight m-0 border-none p-0">EasySavePro</h1>
             </div>
-            <p class="text-xs text-gray-500">Plugin Documentation v1.0</p>
+            <p class="text-xs text-gray-500 font-mono">v1.0.2 | UE 5.3+</p>
         </div>
 
-        <nav class="flex-1 overflow-y-auto p-4 space-y-1">
-            <a href="#overview" class="nav-item block px-3 py-2 rounded-md hover:bg-gray-800 hover:text-white transition-colors text-sm font-medium text-ue-blue">1. Overview</a>
+        <nav class="flex-1 overflow-y-auto p-6 space-y-1">
+            <a href="#overview" class="nav-item block px-3 py-2 rounded-md hover:bg-gray-800 hover:text-white transition-colors text-sm font-medium text-ue-blue mb-4">1. Overview</a>
             
-            <div class="pt-2 pb-1 px-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Guide</div>
+            <div class="pt-2 pb-2 px-3 text-xs font-bold text-gray-500 uppercase tracking-widest">User Guide</div>
             <a href="#getting-started" class="nav-item block px-3 py-2 rounded-md hover:bg-gray-800 hover:text-white transition-colors text-sm">2. Getting Started</a>
-            <a href="#step1" class="nav-item block px-3 py-1 ml-4 border-l border-gray-700 hover:border-ue-blue text-gray-400 hover:text-white text-xs transition-colors">Step 1: Enable Plugin</a>
-            <a href="#step2" class="nav-item block px-3 py-1 ml-4 border-l border-gray-700 hover:border-ue-blue text-gray-400 hover:text-white text-xs transition-colors">Step 2: Mark Actors</a>
-            <a href="#step3" class="nav-item block px-3 py-1 ml-4 border-l border-gray-700 hover:border-ue-blue text-gray-400 hover:text-white text-xs transition-colors">Step 3: Interface</a>
-            <a href="#utils" class="nav-item block px-3 py-1 ml-4 border-l border-gray-700 hover:border-ue-blue text-gray-400 hover:text-white text-xs transition-colors">Utility Nodes</a>
+            <div class="ml-2 border-l border-gray-700 my-1">
+                <a href="#step1" class="nav-item block pl-4 py-1.5 text-gray-400 hover:text-white text-xs transition-colors hover:translate-x-1 duration-200">Enable Plugin</a>
+                <a href="#step2" class="nav-item block pl-4 py-1.5 text-gray-400 hover:text-white text-xs transition-colors hover:translate-x-1 duration-200">Mark Actors</a>
+                <a href="#step3" class="nav-item block pl-4 py-1.5 text-gray-400 hover:text-white text-xs transition-colors hover:translate-x-1 duration-200">Interfaces</a>
+            </div>
 
-            <div class="pt-4 pb-1 px-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Features</div>
+            <div class="pt-6 pb-2 px-3 text-xs font-bold text-gray-500 uppercase tracking-widest">Documentation</div>
             <a href="#core-features" class="nav-item block px-3 py-2 rounded-md hover:bg-gray-800 hover:text-white transition-colors text-sm">3. Core Features</a>
             <a href="#advanced-features" class="nav-item block px-3 py-2 rounded-md hover:bg-gray-800 hover:text-white transition-colors text-sm">4. Advanced Features</a>
-            
-            <div class="pt-4 pb-1 px-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Reference</div>
             <a href="#blueprints" class="nav-item block px-3 py-2 rounded-md hover:bg-gray-800 hover:text-white transition-colors text-sm">5. BP Node Reference</a>
+            
+            <div class="pt-6 pb-2 px-3 text-xs font-bold text-gray-500 uppercase tracking-widest">Tips</div>
             <a href="#best-practices" class="nav-item block px-3 py-2 rounded-md hover:bg-gray-800 hover:text-white transition-colors text-sm">6. Best Practices</a>
         </nav>
 
-        <div class="p-4 border-t border-ue-gray">
-            <a href="#" class="flex items-center gap-2 text-xs text-gray-500 hover:text-white transition-colors">
+        <div class="p-6 border-t border-ue-gray bg-black/20">
+            <a href="#" class="flex items-center gap-3 text-xs text-gray-400 hover:text-white transition-colors">
                 <i data-lucide="github" class="w-4 h-4"></i>
-                <span>Report an Issue</span>
+                <span>Report an Issue / Discord</span>
             </a>
         </div>
     </aside>
 
     <!-- Overlay for mobile -->
-    <div id="overlay" class="fixed inset-0 bg-black/50 z-0 hidden md:hidden glass"></div>
+    <div id="overlay" class="fixed inset-0 bg-black/60 z-0 hidden md:hidden backdrop-blur-sm"></div>
 
     <!-- Main Content -->
-    <main class="flex-1 h-full overflow-y-auto scroll-smooth relative">
-        <div class="max-w-4xl mx-auto px-6 py-12 md:py-16 prose">
+    <main class="flex-1 h-full overflow-y-auto scroll-smooth relative bg-ue-dark">
+        <div class="max-w-5xl mx-auto px-8 py-12 md:py-20 prose">
             
             <!-- 1. Overview -->
             <section id="overview" class="animate-fade-in">
-                <h1 class="flex items-center gap-3">
-                    <span class="text-4xl">📘</span> EasySavePro Plugin
-                </h1>
-                <p class="text-lg text-gray-400">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="text-5xl">📘</span> 
+                    <h1 class="text-4xl font-extrabold text-white !m-0 !border-0 !p-0">EasySavePro Plugin</h1>
+                </div>
+                
+                <p class="text-xl text-gray-300 leading-relaxed font-light border-l-4 border-ue-blue pl-6 py-2 bg-gradient-to-r from-blue-900/10 to-transparent">
                     <strong>EasySavePro</strong> is a robust, asynchronous save/load system for Unreal Engine 5. Designed for flexibility and performance, it allows you to save any actor, handle open worlds, manage persistent player data, and capture save thumbnails without freezing your game.
                 </p>
             </section>
 
-            <hr class="border-gray-800 my-8">
 
             <!-- 2. Getting Started -->
             <section id="getting-started">
-                <h2>2. Getting Started (3 Steps)</h2>
+                <h2 class="!mt-20">2. Getting Started (3 Steps)</h2>
+                <p class="mb-8">Follow this quick start guide to get your saving system running in less than 5 minutes.</p>
 
-                <div id="step1" class="mb-8">
-                    <h3>Step 1: Enable the Plugin</h3>
-                    <p>Enable <code>EasySavePro</code> in <em>Edit > Plugins</em>.</p>
-                    <blockquote>
-                        <strong>Important:</strong> Most nodes require the <strong>EasySaveSubsystem</strong>.<br>
-                        To get it, right-click in your Blueprint (Context Sensitive checked) and search for <strong>"Get EasySaveSubsystem"</strong>. Connect this return value to the "Target" pin of EasySave nodes.
-                    </blockquote>
+                <!-- Step 1 -->
+                <div id="step1" class="step-card group">
+                    <span class="step-number">01</span>
+                    <h3 class="!mt-0 text-ue-blue group-hover:text-white transition-colors">Step 1: Enable the Plugin</h3>
+                    <p>Go to <em>Edit > Plugins</em> and enable <code>EasySavePro</code>. Restart the editor.</p>
+                    
+                    <div class="callout callout-warning">
+                        <i data-lucide="alert-triangle" class="text-orange-500 w-6 h-6 flex-shrink-0 mt-1"></i>
+                        <div>
+                            <strong class="text-orange-400 block mb-1">Crucial Requirement</strong>
+                            <span class="text-sm">Most nodes require the <strong>EasySaveSubsystem</strong> context. 
+                            To get it, right-click in your Blueprint (Context Sensitive checked) and search for <strong>"Get EasySaveSubsystem"</strong>. Connect this return value to the "Target" pin of any EasySave node.</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div id="step2" class="mb-8">
-                    <h3>Step 2: Mark Actors to Save</h3>
-                    <p>To save an actor (Player, Chest, Enemy, etc.), simply add the <code>EasySaveComponent</code> to it in Blueprint or C++.</p>
-                    <ul>
+                <!-- Step 2 -->
+                <div id="step2" class="step-card group">
+                    <span class="step-number">02</span>
+                    <h3 class="!mt-0 text-ue-blue group-hover:text-white transition-colors">Step 2: Mark Actors to Save</h3>
+                    <p>To save an actor (Player, Chest, Enemy), simply add the <code>EasySaveComponent</code> to it in Blueprint.</p>
+                    <ul class="text-sm">
                         <li>The component automatically adds the tag <code>"SaveMe"</code> to the actor.</li>
-                        <li>It handles saving Transform, Physics, and variables marked as "SaveGame".</li>
+                        <li>It handles saving <strong>Transform</strong>, <strong>Physics</strong>, and variables marked as <strong>"SaveGame"</strong>.</li>
                     </ul>
                 </div>
 
-                <div id="step3" class="mb-8">
-                    <h3>Step 3: Implement the Interface (Optional)</h3>
-                    <p>To run custom logic when saving/loading (e.g. refill health, reset AI), implement the <code>EasySaveInterface</code> in your Actor Blueprint.</p>
-                    <ul>
-                        <li><strong>OnSaveStarted</strong>: Called just before saving. Use it to update variables.</li>
-                        <li><strong>OnActorLoaded</strong>: Called after this specific actor has been restored.</li>
-                        <li><strong>OnGameLoaded</strong>: Called after the <em>entire world</em> has been restored.</li>
-                    </ul>
-                </div>
-
-                <div id="utils">
-                    <h3>🛠️ Utility Nodes</h3>
-                    <p>Helper nodes to make your UI life easier (Category: EasySave | Utils).</p>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Node</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Import Save Screenshot</strong></td>
-                                <td>Loads the <code>.png</code> from a save slot as a <code>Texture2D</code> for your UI Image.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Format Played Time</strong></td>
-                                <td>Converts seconds (float) to <code>HH:MM:SS</code> string.</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Format Save Date</strong></td>
-                                <td>Converts DateTime to <code>DD/MM/YYYY - HH:MM</code> string.</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <!-- Step 3 -->
+                <div id="step3" class="step-card group">
+                    <span class="step-number">03</span>
+                    <h3 class="!mt-0 text-ue-blue group-hover:text-white transition-colors">Step 3: Implement Interface (Optional)</h3>
+                    <p>To run custom logic (e.g., refill health, reset AI behavior), add the <code>EasySaveInterface</code> to your Actor Blueprint.</p>
+                    <div class="grid md:grid-cols-3 gap-4 mt-4">
+                        <div class="bg-black/30 p-3 rounded border border-gray-700">
+                            <strong class="text-pink-400 block mb-1">OnSaveStarted</strong>
+                            <span class="text-xs text-gray-400">Called before saving. Use to update variables.</span>
+                        </div>
+                        <div class="bg-black/30 p-3 rounded border border-gray-700">
+                            <strong class="text-green-400 block mb-1">OnActorLoaded</strong>
+                            <span class="text-xs text-gray-400">Called after this specific actor is restored.</span>
+                        </div>
+                        <div class="bg-black/30 p-3 rounded border border-gray-700">
+                            <strong class="text-blue-400 block mb-1">OnGameLoaded</strong>
+                            <span class="text-xs text-gray-400">Called after the entire world is finished loading.</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <hr class="border-gray-800 my-8">
+            <!-- Utils Section -->
+            <section id="utils" class="mt-12">
+                <div class="callout callout-info">
+                    <i data-lucide="wrench" class="text-blue-400 w-6 h-6 flex-shrink-0 mt-1"></i>
+                    <div>
+                        <strong class="text-blue-300 block mb-2">UI Utility Nodes</strong>
+                        <p class="text-sm !mb-0">Found under <code>EasySave | Utils</code> category. These helpers are purely for UI formatting.</p>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="30%">Node</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Import Save Screenshot</strong></td>
+                            <td>Loads the <code>.png</code> from a save slot as a <code>Texture2D</code> for your UI Image.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Format Played Time</strong></td>
+                            <td>Converts seconds (float) to <code>HH:MM:SS</code> string.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Format Save Date</strong></td>
+                            <td>Converts DateTime to <code>DD/MM/YYYY - HH:MM</code> string.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
 
             <!-- 3. Core Features -->
             <section id="core-features">
                 <h2>3. Core Features</h2>
 
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-ue-panel p-5 rounded border border-ue-gray">
-                        <h3 class="mt-0 text-white flex items-center gap-2">💾 Saving the World</h3>
-                        <p class="text-sm">Use the <strong>Save World Async</strong> node.</p>
-                        <ul class="text-sm">
-                            <li><em>Note: The synchronous 'SaveWorld' function is internal and hidden.</em></li>
-                            <li><strong>Slot Name:</strong> Name of the save folder.</li>
-                            <li><strong>Capture Screenshot:</strong> If true, captures viewport.</li>
-                            <li><strong>Extra Metadata:</strong> Map (String->String).</li>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Card 1 -->
+                    <div class="bg-ue-panel p-6 rounded-lg border border-ue-gray hover:border-ue-blue transition-colors shadow-lg">
+                        <h3 class="!mt-0 text-white flex items-center gap-3 border-b border-gray-700 pb-3">
+                            <i data-lucide="hard-drive" class="text-ue-blue"></i> Saving the World
+                        </h3>
+                        <p class="text-sm mt-4 text-gray-400">Use the <strong>Save World Async</strong> node.</p>
+                        <ul class="text-sm space-y-2">
+                            <li class="flex items-start gap-2"><span class="text-ue-blue">•</span> <strong>Async:</strong> Doesn't freeze the game thread.</li>
+                            <li class="flex items-start gap-2"><span class="text-ue-blue">•</span> <strong>Screenshot:</strong> Captures viewport if checked.</li>
+                            <li class="flex items-start gap-2"><span class="text-ue-blue">•</span> <strong>Metadata:</strong> Supports Map(String->String).</li>
                         </ul>
                     </div>
                     
-                    <div class="bg-ue-panel p-5 rounded border border-ue-gray">
-                        <h3 class="mt-0 text-white flex items-center gap-2">📂 Loading the World</h3>
-                        <ul class="text-sm mt-4">
-                            <li><strong>Load World Full:</strong> Reloads map + restores actors. (Main Menu -> Load).</li>
-                            <li><strong>Load World Instant:</strong> Restores actors <em>without</em> reload. (Checkpoints).</li>
+                    <!-- Card 2 -->
+                    <div class="bg-ue-panel p-6 rounded-lg border border-ue-gray hover:border-ue-blue transition-colors shadow-lg">
+                        <h3 class="!mt-0 text-white flex items-center gap-3 border-b border-gray-700 pb-3">
+                            <i data-lucide="folder-open" class="text-ue-blue"></i> Loading the World
+                        </h3>
+                        <div class="mt-4 space-y-4">
+                            <div>
+                                <strong class="text-white text-sm block">Load World Full</strong>
+                                <span class="text-xs text-gray-400">Reloads map + restores actors. Use for Main Menu -> Load.</span>
+                            </div>
+                            <div>
+                                <strong class="text-white text-sm block">Load World Instant</strong>
+                                <span class="text-xs text-gray-400">Restores actors without map reload. Perfect for Checkpoints/Death.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-ue-panel p-6 rounded-lg border border-ue-gray hover:border-ue-blue transition-colors shadow-lg">
+                        <h3 class="!mt-0 text-white flex items-center gap-3 border-b border-gray-700 pb-3">
+                            <i data-lucide="clock" class="text-ue-blue"></i> Auto-Save System
+                        </h3>
+                        <p class="text-sm mt-4 text-gray-400">Built-in rolling timer system.</p>
+                        <ul class="text-sm space-y-2">
+                            <li class="flex items-start gap-2"><span class="text-ue-blue">•</span> <strong>Nodes:</strong> Start, Stop, Update Settings.</li>
+                            <li class="flex items-start gap-2"><span class="text-ue-blue">•</span> <strong>Rolling:</strong> Overwrites oldest files (AutoSave_0, _1...).</li>
                         </ul>
                     </div>
 
-                    <div class="bg-ue-panel p-5 rounded border border-ue-gray">
-                        <h3 class="mt-0 text-white flex items-center gap-2">⚙️ Auto-Save System</h3>
-                        <p class="text-sm">Built-in timer for rolling auto-saves.</p>
-                        <ul class="text-sm">
-                            <li><strong>Start Auto Save:</strong> Freq (sec) & Max Slots.</li>
-                            <li><strong>Update Settings:</strong> Change frequency live.</li>
-                            <li>Files named <code>AutoSave_0</code>, <code>AutoSave_1</code>...</li>
-                        </ul>
-                    </div>
-
-                    <div class="bg-ue-panel p-5 rounded border border-ue-gray">
-                        <h3 class="mt-0 text-white flex items-center gap-2">🌍 Global Save</h3>
-                        <p class="text-sm">Independent of level (Audio, Settings).</p>
-                        <ul class="text-sm">
-                            <li>Saves <code>GameInstance</code> variables marked "SaveGame".</li>
-                            <li><strong>Slot Name:</strong> Defaults to "GlobalSettings".</li>
+                    <!-- Card 4 -->
+                    <div class="bg-ue-panel p-6 rounded-lg border border-ue-gray hover:border-ue-blue transition-colors shadow-lg">
+                        <h3 class="!mt-0 text-white flex items-center gap-3 border-b border-gray-700 pb-3">
+                            <i data-lucide="globe" class="text-ue-blue"></i> Global Save
+                        </h3>
+                        <p class="text-sm mt-4 text-gray-400">Independent of current level (Settings, Audio).</p>
+                        <ul class="text-sm space-y-2">
+                            <li class="flex items-start gap-2"><span class="text-ue-blue">•</span> Saves <code>GameInstance</code> variables marked "SaveGame".</li>
+                            <li class="flex items-start gap-2"><span class="text-ue-blue">•</span> Defaults to slot "GlobalSettings".</li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <hr class="border-gray-800 my-8">
 
             <!-- 4. Advanced Features -->
             <section id="advanced-features">
                 <h2>4. Advanced Features</h2>
                 
-                <h3>🖼️ Asynchronous Screenshots</h3>
-                <p>The plugin captures and compresses screenshots in a background thread to avoid frame drops. You can resize them (e.g. 640x360) using the <code>ScreenshotWidth</code> / <code>ScreenshotHeight</code> pins.</p>
+                <div class="space-y-8">
+                    <!-- Async Screenshots -->
+                    <div>
+                        <h3>🖼️ Asynchronous Screenshots</h3>
+                        <p>The plugin captures and compresses screenshots in a background thread to avoid frame drops. You can resize them (e.g., 640x360) using the <code>ScreenshotWidth</code> / <code>ScreenshotHeight</code> pins on the Save Node.</p>
+                    </div>
 
-                <h3>📝 Custom Metadata</h3>
-                <p>Attach custom data (Dictionary) to any save file (e.g. "Quest": "Kill Dragon").</p>
-                <ul>
-                    <li><strong>Write:</strong> Pass Map to <code>Save World Async</code>.</li>
-                    <li><strong>Read:</strong> Call <code>GetAllSaveSlots</code>. Access <code>CustomData</code> in the Structure.</li>
-                </ul>
+                    <!-- Custom Metadata -->
+                    <div>
+                        <h3>📝 Custom Metadata</h3>
+                        <p>Attach a dictionary of strings to any save file (e.g., <code>"Quest": "Kill Dragon"</code>, <code>"Difficulty": "Hard"</code>).</p>
+                        <div class="flex gap-4 flex-col md:flex-row">
+                            <div class="bg-gray-900 p-4 rounded border border-gray-700 flex-1">
+                                <strong class="text-ue-blue text-sm block uppercase tracking-wide mb-2">Write</strong>
+                                <span class="text-sm text-gray-400">Pass the Map variable to the <code>Save World Async</code> node input.</span>
+                            </div>
+                            <div class="bg-gray-900 p-4 rounded border border-gray-700 flex-1">
+                                <strong class="text-ue-blue text-sm block uppercase tracking-wide mb-2">Read</strong>
+                                <span class="text-sm text-gray-400">Call <code>GetAllSaveSlots</code>. Access the <code>CustomData</code> field in the returned Structure.</span>
+                            </div>
+                        </div>
+                    </div>
 
-                <h3>🐛 Debug Mode</h3>
-                <p>Type <code>EasySave.ShowDebug 1</code> in console to visualize saved actors.</p>
-                <div class="space-y-2">
-                    <div class="flex items-center gap-3">
-                        <span class="w-3 h-3 rounded-full bg-green-500"></span>
-                        <span class="text-sm"><strong>Green:</strong> Saved correctly (ID visible).</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="w-3 h-3 rounded-full bg-cyan-400 shadow-[0_0_10px_cyan]"></span>
-                        <span class="text-sm text-cyan-400"><strong>Cyan: DUPLICATE ID DETECTED (Critical).</strong></span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="w-3 h-3 rounded-full bg-red-500"></span>
-                        <span class="text-sm"><strong>Red:</strong> Invalid ID (Regenerate in editor).</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <span class="w-3 h-3 rounded-full bg-orange-500"></span>
-                        <span class="text-sm"><strong>Orange:</strong> Tag present but Component missing.</span>
+                    <!-- Debug Mode -->
+                    <div>
+                        <h3>🐛 Debug Mode Visualizer</h3>
+                        <p>Type <code>EasySave.ShowDebug 1</code> in the console to visualize saved actors in the world.</p>
+                        
+                        <div class="bg-black/40 p-6 rounded-lg border border-gray-700 grid md:grid-cols-2 gap-4">
+                            <div class="flex items-center gap-4 p-2 rounded hover:bg-gray-800 transition-colors">
+                                <div class="w-4 h-4 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+                                <div>
+                                    <strong class="block text-green-400 text-sm">Green Sphere</strong>
+                                    <span class="text-xs text-gray-500">Saved correctly (ID visible).</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-4 p-2 rounded hover:bg-gray-800 transition-colors border border-cyan-900/30 bg-cyan-900/10">
+                                <div class="w-4 h-4 rounded-full bg-cyan-400 shadow-[0_0_15px_cyan]"></div>
+                                <div>
+                                    <strong class="block text-cyan-400 text-sm">Cyan Sphere</strong>
+                                    <span class="text-xs text-cyan-200">DUPLICATE ID DETECTED (Critical Warning).</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-4 p-2 rounded hover:bg-gray-800 transition-colors">
+                                <div class="w-4 h-4 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></div>
+                                <div>
+                                    <strong class="block text-red-400 text-sm">Red Sphere</strong>
+                                    <span class="text-xs text-gray-500">Invalid ID (Re-generate in editor).</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-4 p-2 rounded hover:bg-gray-800 transition-colors">
+                                <div class="w-4 h-4 rounded-full bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.5)]"></div>
+                                <div>
+                                    <strong class="block text-orange-400 text-sm">Orange Sphere</strong>
+                                    <span class="text-xs text-gray-500">Tag "SaveMe" present but Component missing.</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <hr class="border-gray-800 my-8">
 
             <!-- 5. Blueprint Reference -->
             <section id="blueprints">
                 <h2>5. Blueprint Node Reference</h2>
-                <div class="overflow-x-auto">
-                    <table>
+                <div class="overflow-x-auto shadow-xl rounded-lg border border-gray-700">
+                    <table class="!mb-0">
                         <thead>
                             <tr>
                                 <th class="w-1/4">Node Name</th>
@@ -294,41 +395,46 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td><strong>Save World Async</strong></td><td>Async</td><td>Saves world, screenshot, metadata in background.</td></tr>
-                            <tr><td><strong>Load World Full</strong></td><td>EasySave</td><td>Reloads level and restores state.</td></tr>
-                            <tr><td><strong>Load World Instant</strong></td><td>EasySave</td><td>Restores state immediately (Checkpoint).</td></tr>
-                            <tr><td><strong>Save Global</strong></td><td>EasySave</td><td>Saves GameInstance "SaveGame" variables.</td></tr>
+                            <tr><td><strong>Save World Async</strong></td><td><span class="text-xs bg-blue-900/50 text-blue-300 px-2 py-1 rounded">Async</span></td><td>Saves world, screenshot, metadata in background. Triggers "On Success".</td></tr>
+                            <tr><td><strong>Load World Full</strong></td><td>EasySave</td><td>Reloads level and restores state. Best for fresh loads.</td></tr>
+                            <tr><td><strong>Load World Instant</strong></td><td>EasySave</td><td>Restores state immediately. Best for checkpoints.</td></tr>
+                            <tr><td><strong>Save Global</strong></td><td>EasySave</td><td>Saves GameInstance "SaveGame" variables (Settings/Audio).</td></tr>
                             <tr><td><strong>Load Global</strong></td><td>EasySave</td><td>Loads GameInstance variables.</td></tr>
-                            <tr><td><strong>Open Level With Data</strong></td><td>Travel</td><td>Opens level, keeping Player/Controller state active.</td></tr>
+                            <tr><td><strong>Open Level With Data</strong></td><td>Travel</td><td>Opens a new level but keeps Player/Controller state active (Hub -> Mission).</td></tr>
                             <tr><td><strong>Get All Save Slots</strong></td><td>File</td><td>Returns array of <code>FSaveMetadata</code> struct.</td></tr>
                             <tr><td><strong>Delete Save</strong></td><td>File</td><td>Permanently deletes a slot folder.</td></tr>
-                            <tr><td><strong>Start Auto Save</strong></td><td>AutoSave</td><td>Activates rolling auto-save timer.</td></tr>
+                            <tr><td><strong>Start Auto Save</strong></td><td>AutoSave</td><td>Activates the rolling auto-save timer.</td></tr>
+                            <tr><td><strong>Is Auto Save Active</strong></td><td>AutoSave</td><td>Returns true if the timer is currently running.</td></tr>
                         </tbody>
                     </table>
                 </div>
             </section>
 
-            <hr class="border-gray-800 my-8">
 
             <!-- 6. Best Practices -->
             <section id="best-practices">
                 <h2>6. Best Practices</h2>
-                <ol class="list-decimal list-inside space-y-4 ml-2 text-gray-300">
-                    <li>
-                        <strong>Unique IDs (Optional):</strong> The <code>EasySaveComponent</code> generates a GUID automatically. If you duplicate an actor in the level editor, click <strong>"Force Generate ID"</strong> in the details panel to ensure safety.
-                    </li>
-                    <li>
-                        <strong>Variables:</strong> Only variables marked with the <strong>"SaveGame"</strong> checkbox (Advanced Display) are saved!
-                    </li>
-                    <li>
-                        <strong>Level Travel:</strong> Use <code>OpenLevelWithData</code> to keep Inventory/Stats when changing maps (hub -> dungeon).
-                    </li>
-                </ol>
+                <div class="bg-gray-800/50 p-8 rounded-lg border-l-4 border-green-500">
+                    <ol class="list-decimal list-outside ml-4 space-y-6 text-gray-300">
+                        <li>
+                            <strong class="text-white block mb-1">Handle Level Travel Properly</strong> 
+                            Use the <code>OpenLevelWithData</code> node provided by the plugin instead of the standard Unreal node if you want to keep inventory/health across maps (e.g. going from Hub to Dungeon).
+                        </li>
+                        <li>
+                            <strong class="text-white block mb-1">Unique IDs & Duplication</strong>
+                            The <code>EasySaveComponent</code> generates a GUID automatically. However, if you duplicate an actor in the level editor (Alt+Drag), click <strong>"Force Generate ID"</strong> in the details panel to ensure no ID conflicts occur.
+                        </li>
+                        <li>
+                            <strong class="text-white block mb-1">Variable Selection</strong> 
+                            Only variables marked with the <strong>"SaveGame"</strong> checkbox (Advanced Display in BP details) are saved! If a variable isn't saving, check this first.
+                        </li>
+                    </ol>
+                </div>
             </section>
 
-            <footer class="mt-20 pt-8 border-t border-gray-800 text-center text-sm text-gray-500 pb-10">
-                <p>EasySavePro Plugin Documentation &copy; 2024</p>
-                <p class="mt-2">Generated with <i data-lucide="heart" class="inline w-3 h-3 text-red-500"></i> for Unreal Engine Developers.</p>
+            <footer class="mt-24 pt-10 border-t border-gray-800 text-center pb-12">
+                <p class="text-gray-500 text-sm">EasySavePro Plugin Documentation &copy; 2026</p>
+                <p class="mt-2 text-xs text-gray-600">Created with <i data-lucide="heart" class="inline w-3 h-3 text-red-900"></i> for Unreal Engine Developers.</p>
             </footer>
 
         </div>
