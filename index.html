@@ -52,10 +52,9 @@
         /* Code styling */
         .prose code { @apply bg-black/50 text-pink-400 px-2 py-1 rounded text-sm font-mono border border-gray-700/50 mx-1; }
         
-        /* New "Island" Architecture Classes - FIXED SPACING */
+        /* New "Island" Architecture Classes - FIXED SPACING (Reduced from mb-40 to mb-24) */
         .content-section {
-            /* mb-40 adds HUGE vertical space (10rem/160px) between sections */
-            @apply mb-40 p-8 md:p-12 bg-ue-panel rounded-2xl border border-ue-gray shadow-2xl relative scroll-mt-32;
+            @apply mb-24 p-8 md:p-12 bg-ue-panel rounded-2xl border border-ue-gray shadow-2xl relative scroll-mt-32;
         }
 
         /* Inner Cards */
@@ -83,6 +82,11 @@
             .sidebar.open {
                 transform: translateX(0);
             }
+        }
+        
+        /* Badge Utility Class */
+        .badge {
+            @apply text-[10px] uppercase px-2 py-0.5 rounded border font-medium tracking-wider;
         }
     </style>
 </head>
@@ -151,7 +155,7 @@
         <div class="max-w-6xl mx-auto px-6 py-12 md:py-16 prose">
             
             <!-- SECTION 1: OVERVIEW -->
-            <section id="overview" class="mb-40 md:px-4">
+            <section id="overview" class="mb-24 md:px-4">
                 <div class="flex items-center gap-4 mb-6">
                     <div class="p-3 bg-ue-blue-dim rounded-lg border border-ue-blue/20">
                         <i data-lucide="book-open" class="text-ue-blue w-8 h-8"></i>
@@ -406,19 +410,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td><strong>Save World Async</strong></td><td><span class="text-[10px] uppercase bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded border border-blue-500/20">Async</span></td><td>Saves world + screenshot.</td></tr>
-                            <tr><td><strong>Load World Full</strong></td><td>EasySave</td><td>Reloads map (Hard reset).</td></tr>
-                            <tr><td><strong>Load World Instant</strong></td><td>EasySave</td><td>Restores actors only (Soft reset).</td></tr>
-                            <tr><td><strong>Save Global</strong></td><td>EasySave</td><td>Saves GameInstance.</td></tr>
-                            <tr><td><strong>Load Global</strong></td><td>EasySave</td><td>Loads GameInstance.</td></tr>
-                            <tr><td><strong>Open Level With Data</strong></td><td>Travel</td><td>Preserves Player State during travel.</td></tr>
-                            <tr><td><strong>Get All Save Slots</strong></td><td>File</td><td>Lists all saves on disk.</td></tr>
-                            <tr><td><strong>Delete Save</strong></td><td>File</td><td>Deletes a specific slot.</td></tr>
-                            <tr><td><strong>Does Save Exist</strong></td><td>File</td><td>Checks if a slot is valid.</td></tr>
-                            <tr><td><strong>Start Auto Save</strong></td><td>AutoSave</td><td>Begins the loop.</td></tr>
-                            <tr><td><strong>Stop Auto Save</strong></td><td>AutoSave</td><td>Pauses/Stops the auto-save timer.</td></tr>
-                            <tr><td><strong>Update Auto Save Settings</strong></td><td>AutoSave</td><td>Changes interval/max slots on the fly.</td></tr>
-                            <tr><td><strong>Is Auto Save Active</strong></td><td>AutoSave</td><td>Returns true if the timer is running.</td></tr>
+                            <tr><td><strong>Save World Async</strong></td><td><span class="badge bg-blue-500/10 text-blue-400 border-blue-500/20">Async</span></td><td>Saves world + screenshot.</td></tr>
+                            <tr><td><strong>Load World Full</strong></td><td><span class="badge bg-gray-700/30 text-gray-300 border-gray-600">EasySave</span></td><td>Reloads map (Hard reset).</td></tr>
+                            <tr><td><strong>Load World Instant</strong></td><td><span class="badge bg-gray-700/30 text-gray-300 border-gray-600">EasySave</span></td><td>Restores actors only (Soft reset).</td></tr>
+                            <tr><td><strong>Save Global</strong></td><td><span class="badge bg-gray-700/30 text-gray-300 border-gray-600">EasySave</span></td><td>Saves GameInstance.</td></tr>
+                            <tr><td><strong>Load Global</strong></td><td><span class="badge bg-gray-700/30 text-gray-300 border-gray-600">EasySave</span></td><td>Loads GameInstance.</td></tr>
+                            <tr><td><strong>Open Level With Data</strong></td><td><span class="badge bg-emerald-500/10 text-emerald-400 border-emerald-500/20">Travel</span></td><td>Preserves Player State during travel.</td></tr>
+                            <tr><td><strong>Get All Save Slots</strong></td><td><span class="badge bg-orange-500/10 text-orange-400 border-orange-500/20">File</span></td><td>Lists all saves on disk.</td></tr>
+                            <tr><td><strong>Delete Save</strong></td><td><span class="badge bg-orange-500/10 text-orange-400 border-orange-500/20">File</span></td><td>Deletes a specific slot.</td></tr>
+                            <tr><td><strong>Does Save Exist</strong></td><td><span class="badge bg-orange-500/10 text-orange-400 border-orange-500/20">File</span></td><td>Checks if a slot is valid.</td></tr>
+                            <tr><td><strong>Start Auto Save</strong></td><td><span class="badge bg-purple-500/10 text-purple-400 border-purple-500/20">AutoSave</span></td><td>Begins the loop.</td></tr>
+                            <tr><td><strong>Stop Auto Save</strong></td><td><span class="badge bg-purple-500/10 text-purple-400 border-purple-500/20">AutoSave</span></td><td>Pauses/Stops the auto-save timer.</td></tr>
+                            <tr><td><strong>Update Auto Save Settings</strong></td><td><span class="badge bg-purple-500/10 text-purple-400 border-purple-500/20">AutoSave</span></td><td>Changes interval/max slots on the fly.</td></tr>
+                            <tr><td><strong>Is Auto Save Active</strong></td><td><span class="badge bg-purple-500/10 text-purple-400 border-purple-500/20">AutoSave</span></td><td>Returns true if the timer is running.</td></tr>
                         </tbody>
                     </table>
                 </div>
